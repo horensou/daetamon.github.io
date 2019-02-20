@@ -1,0 +1,58 @@
+<%= form_for(@support) do |f| %>
+  <% if @support.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@support.errors.count, "error") %> prohibited this info from being saved:</h2>
+
+      <ul>
+      <% @support.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">
+<table class="table table-bordered">
+    <tbody>
+        <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
+            <div class="field">
+            <tr>
+                <th>제목: </th>
+                <%= tinymce :language => "en" %>
+                <td><%= f.text_area :title, id: :support_title %></td>
+            </tr>
+            </div>
+            <div class="field">
+            <tr>
+                <th>내용: </th>
+                <%= tinymce :language => "en" %>
+                <td><%= f.text_area :content, id: :support_content, class: "form-control tinymce", rows: "10" %></td>
+            </tr>
+            
+            <tr>
+                <th>첨부파일: </th>
+                <td><%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg' %></td>
+            </tr>
+            
+           </div>
+           <div class="field">
+            
+            </div>
+            <tr>
+                <td colspan="2" align="center">
+                    <%= f.submit %>
+                    
+                    <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+                    <a class="btn btn-default" type="reset"> reset </a>
+                    <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+</div>
+
+  <div class="actions">
+    
+  </div>
+<% end %>

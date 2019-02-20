@@ -1,0 +1,100 @@
+
+
+<html>
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <title>쉽고 빠르게 대타찾는, 대타몬!</title>
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="layer">
+        <div class="article">
+          <br>
+          <div align="left"><h3><%= @community.title %></h3></div>
+          <div align ="left">
+
+          </div>
+          
+          
+          
+          <hr>
+          <h6 align="right"><%= Time.now %></h6>
+          <div style="padding:300" class="article-content" >
+            <center>
+            <%= image_tag("#{@community.image}") %>
+            <%= @community.content.html_safe %></center>
+          </div>
+          <br><br>
+          <div class="button" align = "left">
+            <%= link_to '목록', communities_path %>
+            <%= link_to '수정', edit_community_path(@community) %>
+            <%= link_to '삭제', @community, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+          
+          <div class="like" align="right">
+            <% if @community.l_users.include?(current_user) %>
+              <!--좋아요를 했다면-->
+              <span class="like_after">
+                <i class="far fa-thumbs-up"> </i><%= link_to '추천!', like_community_path, method: :post %>
+              </span>
+              <% else %>
+              <!--좋아요를 안했다면-->
+              <span class="like_before">
+               <i class="far fa-thumbs-up"> </i><%= link_to '추천', like_community_path, method: :post %>
+              </span>
+            <% end %>
+            
+            <a> <%= @community.likes.count %></a>
+       </div>
+          <hr>
+          
+        </div>
+      </div>
+       
+      		
+      	
+    </div>
+    <center><h4>댓글쓰기</h4></center>
+    <div align="center" class="comment-input">
+            <%=form_tag '/communities/comment', method: 'post' do %>
+              <input type="hidden" name="user" value="<%=current_user.name%>">
+            	<input type="hidden" name="id" value="<%=@community.id%>">
+            	<input style="text-align:center; width:1200px; height:200px; letter-spacing: -5px" type="text" name="comment"><br><br>
+            	<right><input align="right" type="submit" ></right>
+            <% end %>
+    </div>
+ 
+    
+    <div align="center">
+    <h3>댓글</h3>
+    <%@comm_comments.each do |comment| %> 
+      	<% if comment.article_id == @community.id %>
+      		<div class="comments">
+      		  <p class="user-name">
+      		    <% if comment.user == current_user.name %>
+      		    <%=comment.user%>
+      		     <a class="button-delete"  href="/communities/<%=@community.id%>/comment/<%=comment.id%>" data-method="delete" class="btn btn-default">delete</a>
+      		    <% end %>
+      		  </p>
+      		  <!--%= link_to '삭제', [comment.] , method: :delete, data: { confirm: 'Are you sure?' } %-->
+      		  <hr class="split">
+      			<left><p class=""><%=comment.message%></p></left>
+      			<br><br>
+      		</div>
+      	<% end %>
+      <% end %>
+    </div>
+    
+    
+    
+
+  </body>
+</html>

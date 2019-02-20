@@ -1,0 +1,51 @@
+
+
+<html>
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <title>쉽고 빠르게 대타찾는, 대타몬!</title>
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="layer">
+        <div class="article">
+          <br>
+          <div align="left"><h3><%= @ask.title %></h3></div>
+          <div align ="left">
+            <h6>작성자:  <%= current_user.email %></h6>
+          </div>
+          
+          
+          
+          <hr>
+          <h6 align="right"><%= Time.now %></h6>
+          <div style="padding:300" class="article-content" >
+            <center><%= @ask.content %>
+          </div>
+          <br><br>
+          <div class="button" align = "left">
+            <%= link_to '목록', asks_path %>
+            <%= link_to '수정', edit_ask_path(@ask) %>
+            <%= link_to '삭제', @ask, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+          <hr>
+          
+        </div>
+      </div>
+      
+      		
+      	
+    </div>
+    
+
+
+  </body>
+</html>

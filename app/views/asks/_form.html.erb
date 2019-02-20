@@ -1,0 +1,47 @@
+<%= form_for(@ask) do |f| %>
+  <% if @ask.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ask.errors.count, "error") %> prohibited this community from being saved:</h2>
+
+      <ul>
+      <% @ask.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">
+<table class="table table-bordered">
+    <tbody>
+        <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
+            <tr>
+                <th>제목: </th>
+                <td><%= f.text_field :title, id: :info_title %></td>
+            </tr>
+            <tr>
+                <th>내용: </th>
+                <td><%= f.text_area :content, id: :info_content %></td>
+            </tr>
+            <tr>
+                <th>첨부파일: </th>
+                <td><input type="text" placeholder="파일을 선택하세요. " name="filename" class="form-control"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <%= f.submit %>
+                    
+                    <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+                    <a class="btn btn-default" type="reset"> reset </a>
+                    <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+</div>
+
+  <div class="actions">
+    
+  </div>
+<% end %>
